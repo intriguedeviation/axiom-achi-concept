@@ -1,0 +1,34 @@
+# client-engine: Axiom Protocol aspect
+# Rust/WASM continuous build and test environment
+
+services:
+  client-engine:
+    build:
+      context: .
+      dockerfile: ./docker/client-engine/Dockerfile
+    container_name: achi-client-engine
+    volumes:
+      # Mount source into container — edits on host are immediately visible
+      - ./src:/app/src
+      - ./tests:/app/tests
+      - ./Cargo.toml:/app/Cargo.toml
+      - ./Cargo.lock:/app/Cargo.lock
+      # Persist cargo registry and build cache across restarts
+      - cargo-registry:/usr/local/cargo/registry
+      - cargo-target:/app/target
+      # WASM build output
+      - ./build:/app/build
+    environment:
+      # Treat all warnings as errors — strict conformance
+      RUSTFLAGS: "-D warnings"
+    # Keep container alive for docker exec operations
+    stdin_open: true
+    tty: true
+    # Restart on failure, not on deliberate stop
+    restart: on-failure
+
+volumes:
+  cargo-registry:
+    driver: local
+  cargo-target:
+    driver: local
