@@ -1,0 +1,28 @@
+# Agent configuration for repo handling
+
+llm:
+  specification: ./specs/specification.yml
+  aspects:
+    "./aspects/client-engine":
+      mode: code
+      description: Rust-WASM engine project for domain implementation
+    "./aspects/docs/general":
+      mode: documentation
+      description: General and stakeholder doucmentation for the domain
+    "./aspects/docs/quality":
+      mode: documentation
+      description: Documentation for supporting UAT and QA roles
+    "./aspects/docs/test-cases":
+      mode: documentation
+      description: UAT and QA test cases for validation
+    "./aspects/testing/features":
+      mode: testing
+      description: Gherkin features and specifications for behavior testing harness support
+  ignore:
+    - .DS_Store
+  strict:
+    - specification is the only canonical source of domain truth
+    - aspect outputs must not invent undeclared fields, behaviors, or constraints
+    - documentation aspects must explain, not reinterpret
+    - testing aspects must verify declared behavior and exceptions
+    - code aspects must align with the spec and local aspect rules
