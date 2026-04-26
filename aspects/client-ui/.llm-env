@@ -1,0 +1,36 @@
+# Client UI implementation for Axiom Achi
+
+llm:
+  code-generation:
+    javascript:
+      min-level: ES2022
+      packaging: npm
+      container: true
+    react:
+      min-level: 19.0
+      style: hooks
+    axios:
+      min-level: 1.15
+    conformance:
+      - inline_documentation
+      - warnings_as_errors
+      - operations_via_docker_exec (achi-client-ui)
+    css:
+      layout:
+        - flexbox
+        - grid
+      variables:
+        - custom_properties
+      responsiveness:
+        - media_queries
+        - container_queries
+      color:
+        - WCAG2.1 AA
+      logic:
+        - calc
+        - clamp
+        - min
+        - max
+      typography:
+        - sans-serif
+        - rem_scaling

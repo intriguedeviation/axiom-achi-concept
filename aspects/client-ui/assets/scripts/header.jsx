@@ -1,9 +1,8 @@
-import React from 'react';
 import { BoardPhase, PlayerSide } from 'axiom-achi';
 
-export const Header = ({red, black, game}) => {
+export const Header = ({red, black, game, onReset}) => {
 
-  const currentPhase = game.phase == BoardPhase.Placement ? 'Placement' : 'Movement';
+  const currentPhase = game.phase === BoardPhase.Placement ? 'Placement' : 'Movement';
   
   let redClassName = 'header__billboard-red';
   if (game.activePlayer() === PlayerSide.Red) {
@@ -23,7 +22,7 @@ export const Header = ({red, black, game}) => {
         <span className="header__billboard-phase">{currentPhase}</span>
         <span className={redClassName}>{red.label}</span>
         <span className={blackClassName}>{black.label}</span>
-        <button className="header__billboard-reset">Reset</button>
+        <button className="header__billboard-reset" onClick={onReset}>Reset</button>
       </nav>
     </header>
   );

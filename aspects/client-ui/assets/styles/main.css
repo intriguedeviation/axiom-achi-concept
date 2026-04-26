@@ -29,6 +29,17 @@
   --palette-orange-lighter: rgb(249, 195, 163);
   --palette-red-light: rgb(245, 106, 94);
   --palette-red-lighter: rgb(248, 151, 142);
+
+  --board-field-fill: rgba(0, 0, 0, 0.5);
+  --board-line-color: rgba(255, 255, 255, 0.92);
+  --board-node-fill: rgba(0, 0, 0, 0.5);
+  --board-node-stroke: rgba(255, 255, 255, 0.58);
+  --board-node-stroke-width: 2px;
+  --board-glow-color: rgba(242, 242, 242, 0.18);
+  --board-red-token-fill: rgb(242, 62, 46);
+  --board-black-token-fill: rgb(55, 55, 64);
+  --board-active-token-stroke: rgb(242, 242, 242);
+  --board-selected-token-stroke: rgb(242, 132, 68);
 }
 
 html {
@@ -84,20 +95,25 @@ body {
   position: relative;
   display: flex;
   height: 40px;
-  align-items: center;
   justify-content: space-between;
   padding: 0 2%;
   background: linear-gradient(
     0deg,
-    #d9d9d9,
-    var(--palette-silver)
+    rgba(0, 0, 0, 0.75),
+    rgba(0, 0, 0, 0.45)
   );
+  border-bottom: 1px solid var(--palette-blue);
 }
 
 .header__title {
-  color: var(--palette-blue);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--palette-blue);
+  color: var(--palette-on-background);
   text-decoration: none;
   transition: all 100ms ease-in-out;
+  padding: 0 20px;
 }
 
 .header__title:focus, .header__title:hover {
@@ -160,11 +176,102 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: calc(100dvh - 40px);
+  height: calc(100dvh - 72px);
+  container-type: inline-size;
 }
 
-.game svg {
-  max-width: min(790px, 92dvw);
-  max-height: calc(100dvh - 72px);
-  filter: drop-shadow(0 0 18px rgba(242, 242, 242, 0.18));
+.board {
+  width: min(790px, 92dvw);
+  height: min(790px, calc(100dvh - 72px));
+  filter: drop-shadow(0 0 18px var(--board-glow-color));
+}
+
+.board__field {
+  fill: var(--board-field-fill);
+  stroke: none;
+}
+
+.board__perimeter,
+.board__line {
+  fill: none;
+  stroke: var(--board-line-color);
+  stroke-width: 2px;
+}
+
+.board__position {
+  fill: var(--board-node-fill);
+  stroke: var(--board-node-stroke);
+  stroke-width: var(--board-node-stroke-width);
+  cursor: pointer;
+  transition:
+    fill 140ms ease-in-out,
+    stroke 140ms ease-in-out,
+    stroke-width 140ms ease-in-out;
+}
+
+.board__position-control:focus {
+  outline: none;
+}
+
+.board__position-control:focus .board__position,
+.board__position-control:hover .board__position {
+  stroke: var(--palette-orange-lighter);
+  stroke-width: 4px;
+}
+
+.board__position--red {
+  fill: var(--board-red-token-fill);
+}
+
+.board__position--black {
+  fill: var(--board-black-token-fill);
+}
+
+.board__position--active {
+  stroke: var(--board-active-token-stroke);
+}
+
+.board__position--selected {
+  stroke: var(--board-selected-token-stroke);
+  stroke-width: 5px;
+}
+
+.board__position--locked {
+  cursor: default;
+}
+
+.board__token-label {
+  fill: var(--palette-silver);
+  font: 1.15rem var(--type-sans);
+  text-anchor: middle;
+  dominant-baseline: central;
+  pointer-events: none;
+  user-select: none;
+}
+
+.game__status {
+  position: fixed;
+  left: 50%;
+  bottom: clamp(16px, 4dvh, 36px);
+  z-index: 2;
+  transform: translateX(-50%);
+  padding: 0.65rem 1rem;
+  border: 1px solid rgba(242, 242, 242, 0.28);
+  background: rgba(0, 0, 0, 0.56);
+  color: var(--palette-silver);
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+@media (max-width: 720px) {
+  :root {
+    --board-node-stroke-width: 1.5px;
+  }
+}
+
+@container (max-width: 640px) {
+  .board {
+    width: min(92dvw, 640px);
+    height: min(92dvw, calc(100dvh - 72px));
+  }
 }
