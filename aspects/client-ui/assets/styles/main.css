@@ -40,9 +40,48 @@ html {
 body {
   width: 100dvw;
   height: 100dvh;
+  overflow: hidden;
+}
+
+.app-shell {
+  position: relative;
+  width: 100dvw;
+  min-height: 100dvh;
+  isolation: isolate;
+  background: var(--palette-background);
+}
+
+.app-shell__content {
+  position: relative;
+  z-index: 1;
+  min-height: 100dvh;
+}
+
+.nebula-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100dvw;
+  height: 100dvh;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 46% 48%, rgba(242, 62, 46, 0.34), transparent 42%),
+    radial-gradient(circle at 62% 36%, rgba(20, 192, 224, 0.24), transparent 34%),
+    radial-gradient(circle at 38% 66%, rgba(242, 132, 68, 0.2), transparent 28%),
+    #01030a;
+}
+
+.nebula-background--fallback {
+  background:
+    radial-gradient(circle at 44% 45%, rgba(242, 62, 46, 0.42), transparent 36%),
+    radial-gradient(circle at 62% 38%, rgba(20, 192, 224, 0.26), transparent 32%),
+    radial-gradient(circle at 36% 68%, rgba(51, 92, 255, 0.18), transparent 30%),
+    radial-gradient(circle at 54% 58%, rgba(242, 132, 68, 0.18), transparent 26%),
+    #01030a;
 }
 
 .header {
+  position: relative;
   display: flex;
   height: 40px;
   align-items: center;
@@ -122,4 +161,10 @@ body {
   align-items: center;
   justify-content: center;
   height: calc(100dvh - 40px);
+}
+
+.game svg {
+  max-width: min(790px, 92dvw);
+  max-height: calc(100dvh - 72px);
+  filter: drop-shadow(0 0 18px rgba(242, 242, 242, 0.18));
 }

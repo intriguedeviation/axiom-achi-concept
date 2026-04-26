@@ -41,9 +41,9 @@ export const Board = ({scale}) => {
   const placementCoordPairs = outerPerimeterCoordPairs.map((v, i, arr) => [
     v,
     arr[(i + 1) % arr.length],
-  ]).map(vv => ({
-    x: (vv[0].x + vv[1].x) * 0.5,
-    y: (vv[0].y + vv[1].y) * 0.5,
+  ]).map(([{ x: x1, y: y1 }, { x: x2, y: y2 }]) => ({
+    x: (x1 + x2) * 0.5,
+    y: (y1 + y2) * 0.5,
   }));
 
   let lineSet1 = outerPerimeterCoordPairs
@@ -54,6 +54,11 @@ export const Board = ({scale}) => {
     .slice(0, placementCoordPairs.length / 2)
     .map((v , i) => [v, placementCoordPairs[i + 2]]);
 
+  let circleSet = [...outerPerimeterCoordPairs, ...placementCoordPairs, ...[{x: cx, y: cy}]]
+    .map(({x, y}) => ({cx: x, cy: y, r: 20, fill: '#fff', stroke: 'none'}))
+    .map((props, i) => <circle {...props} key={i} />)
+    ;
+
   let lineSet = [...lineSet1, ...lineSet2]
     .map(([{ x: x1, y: y1 }, { x: x2, y: y2 }]) => ({x1, y1, x2, y2}))
     .map((ls, i) => <line {...ls} stroke="#fff" key={i} />);
@@ -61,9 +66,8 @@ export const Board = ({scale}) => {
   const pathData = `M ${firstPair.x} ${firstPair.y} ` + outerPerimeterCoordPairs.map(p => `L ${p.x} ${p.y}`).join(' ') + ' Z';
   
   const sharedCircleProps = {
-    stroke: '#fff',
-    fill: 'none',
-    strokeWidth: 2,
+    stroke: 'none',
+    fill: 'rgba(0, 0, 0, 0.5)',
   };
 
   const outerCircleProps = {
@@ -83,12 +87,22 @@ export const Board = ({scale}) => {
   return (
     <div className="game">
       <svg xmlns="http://www.w3.org/2000/svg" width={radius * 2} height={radius * 2} version="1.1">
-        <g>
+        <defs>
+          <filter id="filter-L3MLRi5vUXhBPmNcDK0KCw">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="3.2" />
+            <feMerge>
+              <feMergeNode />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+        <g filter="url(#filter-L3MLRi5vUXhBPmNcDK0KCw)">
           <circle {...outerCircleProps} />
           <circle {...innerCircleProps} />
           <path d={pathData} stroke="#fff" fill="none" />
           {lineSet}
         </g>
+        {circleSet}
       </svg>
     </div>
   );
