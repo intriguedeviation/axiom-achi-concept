@@ -1,0 +1,52 @@
+# client-engine: Axiom Protocol aspect
+# Rust/WASM continuous build and test environment
+
+services:
+  client-engine:
+    build:
+      context: .
+      dockerfile: ./docker/client-engine/Dockerfile
+    container_name: achi-client-engine
+    volumes:
+      # Mount source into container — edits on host are immediately visible
+      - ./aspects/client-engine/src:/app/src
+      - ./aspects/client-engine/tests:/app/tests
+      - ./aspects/client-engine/Cargo.toml:/app/Cargo.toml
+      - ./aspects/client-engine/Cargo.lock:/app/Cargo.lock
+      # Persist cargo registry and build cache across restarts
+      - cargo-registry:/usr/local/cargo/registry
+      - cargo-target:/app/target
+      # WASM build output
+      - ./build:/app/build
+    environment:
+      # Treat all warnings as errors — strict conformance
+      RUSTFLAGS: "-D warnings"
+    # Keep container alive for docker exec operations
+    stdin_open: true
+    tty: true
+    # Restart on failure, not on deliberate stop
+    restart: on-failure
+  client-ui:
+    image: node:25-alpine3.22
+    working_dir: /app
+    volumes:
+      - ./aspects/client-ui:/app:rw
+      - ./aspects/client-engine/build:/wasm:ro
+    command: sh -c "npm install && npx vite"
+    depends_on:
+      - client-engine
+    container_name: achi-client-ui
+  proxy:
+    image: nginx:1.30.0-alpine
+    depends_on:
+      - client-ui
+    volumes:
+      - ./docker/proxy/app.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 5000:80
+
+volumes:
+  cargo-registry:
+    driver: local
+  cargo-target:
+    driver: local
