@@ -1,22 +1,19 @@
-# 2026-04-26 (fc70ad9)
+# 2026-04-26 (11ca94f)
 
 ## Added
 
-- Added a React/Vite `client-ui` aspect with application entry points, header, board rendering, stylesheet, package metadata, and Vite configuration.
-- Added integration from the client UI to the generated `client-engine` WebAssembly package.
-- Added generated `client-engine` WebAssembly package outputs under `aspects/client-engine/build`.
-- Added Cucumber behavior coverage for the client engine under `aspects/client-engine/tests`.
-- Added Docker Compose support for running the client UI alongside the client engine.
-- Added an nginx proxy configuration in `docker/proxy/app.conf`.
-- Added root stakeholder and developer setup documentation in `README.md`.
+- Added a WebGL-powered `NebulaBackground` React component for the `client-ui` aspect.
+- Added an animated background layer behind the existing Achi header and board layout.
+- Added CSS fallback nebula styling for environments where WebGL is unavailable.
 
 ## Changed
 
-- Updated `client-engine` WebAssembly bindings to current `wasm-bindgen` and `wasm-bindgen-test` versions.
-- Reworked the Rust client engine from template code into a specification-aligned Achi domain engine.
-- Updated `compose.yml` to mount the `aspects/client-engine` source paths and include `client-ui` and proxy services.
-- Regenerated lockfiles and package outputs for the Rust and JavaScript aspects.
+- Refined the board rendering with placement nodes, a subtle glow filter, and responsive SVG sizing.
+- Updated the `client-ui` application shell so content renders above the nebula canvas.
+- Updated default player labels used by the client UI.
+- Updated Vite configuration to use `defineConfig`.
+- Updated `client-ui` ignore rules to exclude generated `dist` output.
 
 ## Removed
 
-- Removed placeholder-only client-engine behavior in favor of the implemented specification-driven engine.
+- Removed the incompatible `vite-plugin-top-level-await` transform from the client UI build.
