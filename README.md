@@ -12,7 +12,7 @@ called from Rust or JavaScript.
 ## Stakeholder Overview
 
 This project is intended to keep game rules, implementation, and validation in
-sync. The domain source of truth is [specs/specification.yml](specs/specification.yml);
+sync. The domain source of truth is [specs/achi.yml](specs/achi.yml);
 aspect outputs must explain, implement, or verify that specification without
 inventing additional domain behavior.
 
@@ -47,11 +47,11 @@ The implemented game behaviors are:
 
 ```text
 .
-├── .llm-env
+├── guardrails.yml
 ├── LICENSE.md
 ├── README.md
 ├── specs/
-│   └── specification.yml
+│   └── achi.yml
 └── aspects/
     └── client-engine/
         ├── .llm.env
@@ -68,8 +68,8 @@ The implemented game behaviors are:
 
 Important files:
 
-- [.llm-env](.llm-env): repository-level aspect and strictness configuration.
-- [specs/specification.yml](specs/specification.yml): canonical domain model,
+- [guardrails.yml](guardrails.yml): repository-level aspect and strictness configuration.
+- [specs/achi.yml](specs/achi.yml): canonical domain model,
   behavior, and exception definition.
 - [aspects/client-engine/.llm.env](aspects/client-engine/.llm.env): local
   guardrails for the Rust/WASM client engine.
@@ -80,7 +80,7 @@ Important files:
 
 ## Aspect Guardrails
 
-The root `.llm-env` declares that the specification is the only canonical
+The root `guardrails.yml` declares that the specification is the only canonical
 source of domain truth. In practical terms:
 
 - Code must align with the specification and local aspect rules.
@@ -182,7 +182,7 @@ behavior coverage is in the Cucumber harness.
 When changing domain behavior, update the canonical specification first:
 
 ```text
-specs/specification.yml
+specs/achi.yml
 ```
 
 Then update the affected aspects:
