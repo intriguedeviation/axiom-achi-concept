@@ -14,7 +14,7 @@ domain:
       syntax: decimal(p, s)
       remarks: Fixed-precision decimal with precision `p` and scale `s`
     - name: datetime
-  types:
+  expr:
     - name: optionalOf
       syntax: optionalOf<T>
       where:
