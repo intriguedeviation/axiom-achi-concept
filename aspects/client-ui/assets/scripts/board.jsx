@@ -107,6 +107,7 @@ const createBoardGeometry = (scale) => {
   };
 };
 
+// TODO: fix physical location mapping to align with game grid
 export const Board = ({
   activeSide,
   onPositionAction,
