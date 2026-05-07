@@ -1,5 +1,5 @@
 import React from 'react';
-import {BoardPhase, PlayerSide} from 'axiom-achi';
+import {BoardPhase, PlayerSide} from 'achi';
 
 const BOARD_SIDE_COUNT = 4;
 const BOARD_POSITION_COUNT = 9;
