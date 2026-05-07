@@ -71,7 +71,7 @@ Important files:
 - [guardrails.yml](guardrails.yml): repository-level aspect and strictness configuration.
 - [specs/achi.yml](specs/achi.yml): canonical domain model,
   behavior, and exception definition.
-- [aspects/client-engine/.llm.env](aspects/client-engine/.llm.env): local
+- [aspects/client-engine/guardrails.yml](aspects/client-engine/guardrails.yml): local
   guardrails for the Rust/WASM client engine.
 - [aspects/client-engine/src/lib.rs](aspects/client-engine/src/lib.rs): Rust
   implementation of the domain behaviors.
