@@ -1,11 +1,9 @@
 // App entry point
 import React from 'react';
-import {BoardPhase, PlayerSide, definePlayer, initialize, startGame} from 'axiom-achi';
+import {BoardPhase, PlayerSide, definePlayer, startGame} from 'achi';
 import { Header } from './header';
 import { Board, boardMetadata } from './board';
 import { NebulaBackground } from './nebula-background';
-
-initialize();
 
 const TOKEN_COUNT_PER_PLAYER = 4;
 const NO_WINNER = -1;

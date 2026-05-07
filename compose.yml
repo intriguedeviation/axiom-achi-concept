@@ -17,7 +17,7 @@ services:
       - cargo-registry:/usr/local/cargo/registry
       - cargo-target:/app/target
       # WASM build output
-      - ./build:/app/build
+      - ./aspects/client-engine/build:/app/build
     environment:
       # Treat all warnings as errors — strict conformance
       RUSTFLAGS: "-D warnings"

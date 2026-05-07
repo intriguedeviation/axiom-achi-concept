@@ -1,4 +1,4 @@
-import { BoardPhase, PlayerSide } from 'axiom-achi';
+import { BoardPhase, PlayerSide } from 'achi';
 
 export const Header = ({red, black, game, onReset}) => {
 

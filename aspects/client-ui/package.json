@@ -2,17 +2,16 @@
     "name": "axiom-achi-ui",
     "version": "1.0.0",
     "private": true,
-    "license": "MIT",
+    "license": "MPL-2.0",
     "dependencies": {
         "@vitejs/plugin-react": "^6.0.1",
         "achi": "file:../wasm",
-        "axiom-achi": "file:/wasm",
         "axios": "^1.15.2",
+        "esbuild": "^0.28.0",
         "react": "^19.2.5",
         "react-dom": "^19.2.5",
         "vite": "^8.0.10",
         "vite-plugin-top-level-await": "^1.2.2",
-        "vite-plugin-wasm": "^3.6.0",
-        "esbuild": "^0.28.0"
+        "vite-plugin-wasm": "^3.6.0"
     }
 }

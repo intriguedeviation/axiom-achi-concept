@@ -54,7 +54,7 @@ The implemented game behaviors are:
 │   └── achi.yml
 └── aspects/
     └── client-engine/
-        ├── .llm.env
+        ├── guardrails.yml
         ├── Cargo.toml
         ├── src/
         │   ├── lib.rs
